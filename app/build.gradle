@@ -5,16 +5,30 @@ android {
     buildToolsVersion '31.0.0'
     ndkVersion '21.3.6528147'
     defaultConfig {
-        applicationId 'org.love2d.android'
-        versionCode 30
-        versionName '11.4'
+        applicationId '@packageName'
+        versionCode @versionCode
+        versionName '@versionName'
         minSdkVersion 16
         targetSdkVersion 31
     }
     buildTypes {
-        release {
+        Automatic {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.Automatic
+        }
+    }
+    signingConfigs {
+        Automatic {
+            storeFile file('./android.keystore')
+            storePassword '@storePassword'
+            keyAlias '@keyAlias'
+            keyPassword '@keyPassword'
+        }
+    }
+    sourceSets{
+        main{
+            jniLibs.srcDir(['libs'])
         }
     }
     flavorDimensions 'mode', 'recording'
